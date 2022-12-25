@@ -3,6 +3,8 @@ import Head from 'next/head'
 import {Post} from '../typings'
 import Header from '../components/Header'
 import {sanityClient, urlFor} from "../sanity.js"
+import post from '../sanityyoutube/schemas/post'
+import Link from 'next/link'
 
 interface Props{
   posts: [Post]
@@ -25,6 +27,14 @@ export default function Home({posts} : Props) {
           <h2>It's easy and free to poast your thinking on any topic and connect with millions of readers.</h2>
         </div>
         <img className=' hidden md:inline-flex h-32 lg:h-full' src="pngwing.com.png" alt="" />
+      </div>
+
+      <div>
+        {posts.map((post)=> (
+          <Link key={post._id} href={`/post/${post.slug.current}`}>
+            <img src={urlFor(post.mainImage).url()} alt="" />
+          </Link>
+        ))}
       </div>
     </div>
   )

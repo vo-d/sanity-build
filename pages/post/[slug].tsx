@@ -19,27 +19,27 @@ function Post({post} : Props) {
 }
 
 // prerender (not server side render so the page is built before user click the link to this page -> faster)
-export async function getStaticPaths(){
+export const getStaticPaths = async() =>{
     const query = `*[_type=="post"]{
         _id,
-        slug,
-    }`
+        slug,}`;
     
     const posts = await sanityClient.fetch(query);
+
     const paths = posts.map((post : Post)=>({
         params:{
             slug: post.slug.current
         }
     }))
-    return{
+    return {
         paths,
         fallback: 'blocking'
     }
 }
 
+// get data for each slug
 export const getStaticProps : GetStaticProps = async({params}) =>{
-    // get first item with given slug
-    const query = `*[_type=="post" && slug.current == $slug][0]{
+    const query = `*[_type=="post" && slug.current==$slug][0]{
         _id,
         _createAt,
         title,
@@ -52,15 +52,14 @@ export const getStaticProps : GetStaticProps = async({params}) =>{
         body
     }`
 
-    const post = await sanityClient.fetch(query, {slug: params?.slug})
-
+    const post = await sanityClient.fetch(query, {slug: params?.slug});
     if (!post){
         return{
             notFound: true
         }
     }
 
-    return{
+    return {
         props:{
             post
         }

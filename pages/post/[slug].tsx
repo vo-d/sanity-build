@@ -6,11 +6,11 @@ import { GetStaticProps } from 'next'
 import PortableText from 'react-portable-text'
 import {useForm} from 'react-hook-form'
 
-interface IFormInput{
-    _id: string,
-    name: string,
-    email: string,
-    comment: string
+interface formItemType{
+    _id:string,
+    name:string,
+    email:string,
+    comment:string,
 }
 
 interface Props{
@@ -19,19 +19,13 @@ interface Props{
 
 function Post({post} : Props) {
 
-    const { register, handleSubmit, formState:{errors}} = useForm<IFormInput>();
-
-    const onSubmit = async (data: IFormInput) => {
-        await fetch('/api/createComment',{
-            method: 'POST',
+    const {register, handleSubmit, formState:{errors}} = useForm<formItemType>();
+    const onSubmit = async(data:formItemType) =>{
+        await fetch("/api/createComment",{
+            method:'POST',
             body: JSON.stringify(data)
-        }).then (()=>{
-            console.log(data)
-        }).catch((err)=>{
-            console.log(err)
         })
-    }
-    
+    } 
 
     return (
         <main>
@@ -46,8 +40,8 @@ function Post({post} : Props) {
                     <img className=' h-10 w-10 rounded-full' src={urlFor(post.author.image).url()} alt="" />
                     <p className='font-extralight text-sm'>Blog post by <span className='text-green-600'>{post.author.name}</span> - Published at {new Date(post._createAt).toLocaleString()}</p>
                 </div>
-                <div className=''>
-                        <PortableText 
+                    <div className=''>
+                        <PortableText
                         dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
                         projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
                         content={post.body}
@@ -63,7 +57,8 @@ function Post({post} : Props) {
                                     <a href={href} className='text-blue-500 hover:underline'>{children}</a>
                                 }
                             }
-                        }></PortableText>
+                        }
+                        ></PortableText>
                     </div>
                     <hr className=' max-w-lg mx-auto border border-yellow-500'/>
 
@@ -73,24 +68,27 @@ function Post({post} : Props) {
                         <hr className='py-3 mt-2'/>
 
                         <input 
-                        {...register("_id")}
+                        {...register('_id', {required:true})}
                         type="hidden" 
                         name="_id" 
                         value={post._id}/>
 
                         <label className='block mb-5'>
                             <span className='text-gray-700'>Name</span>
-                            <input {...register("name", {required:true})} className='shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='Your Name' type="text" />
+                            <input {...register('name', {required:true})} className='shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='Your Name' type="text" />
                         </label>
                         <label className='block mb-5'>
                             <span className='text-gray-700'>Email</span>
-                            <input {...register("email", {required:true})} className='shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='Your email' type="text" />
+                            <input {...register('email', {required:true})} className='shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='Your email' type="text" />
                         </label>
                         <label className='block mb-5'>
                             <span className='text-gray-700'>Comment</span>
-                            <textarea {...register("comment", {required:true})} className='shadow border rounded py-2 px-3 form-textarea mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='Your comment' rows={8} />
+                            <textarea {...register('comment', {required:true})}  className='shadow border rounded py-2 px-3 form-textarea mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='Your comment' rows={8} />
                         </label>
-                        <div className='flex flex-col p-5'>
+                        
+                        <input type="submit" className='shadow bg-yellow-500 hover:bg-yellow-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded cursor-pointer' />
+                    </form>
+                    <div className='flex flex-col p-5'>
                             {errors.name && (
                                 <span className='text-red-500'>The Name Field is required</span>
                             )}
@@ -101,8 +99,6 @@ function Post({post} : Props) {
                                 <span className='text-red-500'>The Comment Field is required</span>
                             )}
                         </div>
-                        <input type="submit" className='shadow bg-yellow-500 hover:bg-yellow-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded cursor-pointer' />
-                    </form>
             </article>
         </main>
         

@@ -1,6 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import SanityClient from '@sanity/client'
-import { json } from 'stream/consumers'
 
 // copy from sanity.js but add token
 export const config = {

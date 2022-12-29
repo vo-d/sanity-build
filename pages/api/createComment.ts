@@ -1,6 +1,7 @@
 import SanityClient from '@sanity/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 
+// new config for posting data to sanity: include api token
 const config = {
     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -9,7 +10,7 @@ const config = {
     token: process.env.SANITY_API_TOKEN
 }
 
-
+// createClient is for fetching, SanityClient is for posting
 const client = SanityClient(config)
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
     if(req.method === 'POST'){

@@ -6,6 +6,7 @@ import { GetStaticProps } from 'next'
 import PortableText from 'react-portable-text'
 import {useForm} from 'react-hook-form'
 
+// interface for item
 interface formItemType{
     _id:string,
     name:string,

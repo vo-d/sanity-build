@@ -67,7 +67,7 @@ function Post({post} : Props) {
                         <h3 className=' text-sm text-yellow-500'>Enjoyed this article?</h3>
                         <h4 className='text-3xl font-bold'>Leave a comment below!</h4>
                         <hr className='py-3 mt-2'/>
-                        <!--Hidden field help create reference point for comment-->
+                        <!-- hidden field help create reference point for comment-->
                         <input 
                         {...register('_id', {required:true})}
                         type="hidden" 

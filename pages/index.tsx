@@ -7,7 +7,7 @@ import post from '../sanityyoutube/schemas/post'
 import Link from 'next/link'
 
 interface Props{
-  posts: [Post]
+  posts: Post[]
 }
 
 export default function Home({posts} : Props) {
@@ -49,9 +49,10 @@ export default function Home({posts} : Props) {
 }
 
 
-// get data every time user load page
+
 export const getServerSideProps = async() =>{
-  const query = `*[_type == "post"]{
+// get data every time user load page
+const query = `*[_type == "post"]{
     _id,
       title,
       slug,

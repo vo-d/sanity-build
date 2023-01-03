@@ -3,7 +3,6 @@ import Head from 'next/head'
 import {Post} from '../typings'
 import Header from '../components/Header'
 import {sanityClient, urlFor} from "../sanity.js"
-import post from '../sanityyoutube/schemas/post'
 import Link from 'next/link'
 
 interface Props{

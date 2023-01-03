@@ -6,6 +6,7 @@ import { GetStaticProps } from 'next'
 import PortableText from 'react-portable-text'
 import {useForm} from 'react-hook-form'
 
+// interface for item
 interface formItemType{
     _id:string,
     name:string,
@@ -66,7 +67,7 @@ function Post({post} : Props) {
                         <h3 className=' text-sm text-yellow-500'>Enjoyed this article?</h3>
                         <h4 className='text-3xl font-bold'>Leave a comment below!</h4>
                         <hr className='py-3 mt-2'/>
-
+                        
                         <input 
                         {...register('_id', {required:true})}
                         type="hidden" 

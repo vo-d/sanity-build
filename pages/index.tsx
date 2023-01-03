@@ -49,7 +49,7 @@ export default function Home({posts} : Props) {
 }
 
 
-
+// get data every time user load page
 export const getServerSideProps = async() =>{
   const query = `*[_type == "post"]{
     _id,

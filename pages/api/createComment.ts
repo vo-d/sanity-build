@@ -1,6 +1,7 @@
 import SanityClient from '@sanity/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 
+// copy from sanity.js but add token
 const config = {
     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -21,9 +22,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     _type:'reference',
                     _ref: _id 
                 },
-                name,
-                email,
-                comment
+                name: name,
+                email: email,
+                comment: comment
             })
         }catch(err){
             return res.status(500).json({message:"Couldn't submit comment", err})

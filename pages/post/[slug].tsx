@@ -133,6 +133,11 @@ export const getStaticProps : GetStaticProps = async({params}) =>{
         author ->{
           name, image
         },
+        'comments': *[
+            _type == 'comment' &&
+            post._ref == ^._id && 
+            approve == true
+        ],
         description,
         mainImage, 
         slug,

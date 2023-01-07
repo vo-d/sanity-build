@@ -1,7 +1,7 @@
 import React from 'react'
 import {sanityClient, urlFor} from '../../sanity.js'
 import Header from '../../components/Header'
-import {Post, Comment} from '../../typings'
+import {Post} from '../../typings'
 import { GetStaticProps } from 'next'
 import PortableText from 'react-portable-text'
 import {useForm} from 'react-hook-form'
@@ -25,6 +25,8 @@ function Post({post} : Props) {
         await fetch("/api/createComment",{
             method:'POST',
             body: JSON.stringify(data)
+        }).then((response)=>{ // print out response from server 
+            response.json().then(data =>{console.log(data.message)})
         })
     } 
 

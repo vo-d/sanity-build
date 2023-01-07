@@ -30,7 +30,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }catch(err){
             return res.status(500).json({message:"Couldn't submit comment", err})
         }
-    
-        res.status(200).json({message:'Comment submitted'})
+
+        // Send back response 
+        res.status(200).json({message:"I'm so done"})
     }
 }

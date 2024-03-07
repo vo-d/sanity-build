@@ -1,7 +1,7 @@
 import React from 'react'
 import {sanityClient, urlFor} from '../../sanity.js'
 import Header from '../../components/Header'
-import {Post} from '../../typings'
+import type {Post} from '../../typings'
 import { GetStaticProps } from 'next'
 import PortableText from 'react-portable-text'
 import {useForm} from 'react-hook-form'
